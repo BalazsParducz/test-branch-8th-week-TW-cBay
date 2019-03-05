@@ -32,6 +32,18 @@ class AddToCartTest {
         assertEquals(shoppingCartNumberOriginal + itemsAddedInCart, shoppingCartNumberIncreased);
     }
 
+    @Test
+    public void checkItemsDataInCart_test() {
+        addToCart.goToPage("http://localhost:8080/products?style=Sport%20cars");
+        String carData = addToCart.getCarData();
+        String carPrice = addToCart.getCarPrice();
+        addToCart.addSingleItemToCart();
+        addToCart.goToPage("http://localhost:8080/shopping-cart");
+        String carNameInTableInCart = addToCart.getItemDataFromTableInCart(1);
+        String carPriceInTableInCart = addToCart.getItemDataFromTableInCart(5);
+        assertTrue(carData.contains(carNameInTableInCart) && carPrice.contains(carPriceInTableInCart));
+    }
+
     @AfterEach
     public void tearDown() {
         Utils.tearDown();

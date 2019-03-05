@@ -1,5 +1,6 @@
 package com.cbay.pageFactory;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -26,6 +27,15 @@ public class AddToCart {
     @FindBy(id = "shopping-cart-number")
     WebElement shoppingCartNumber;
 
+    @FindBy(className = "table-striped")
+    WebElement tableInCart;
+
+    @FindBy(className = "card-header")
+    WebElement cardHeaderDiv;
+
+    @FindBy(className = "card-text")
+    WebElement cardTextDiv;
+
     public AddToCart(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, TIMEOUT, POLLING);
@@ -44,13 +54,33 @@ public class AddToCart {
         return 0;
     }
 
+    public void addSingleItemToCart() {
+        wait.until(ExpectedConditions.elementToBeClickable(addToCartButton));
+        addToCartButton.click();
+    }
+
     public void addItemToCart() {
         wait.until(ExpectedConditions.visibilityOf(quantityDropDown));
         quantityDropDown.click();
         wait.until(ExpectedConditions.visibilityOf(quantitiyValue));
         quantitiyValue.click();
-        wait.until(ExpectedConditions.elementToBeClickable(addToCartButton));
-        addToCartButton.click();
+        addSingleItemToCart();
+    }
+
+    public String getCarData() {
+        wait.until(ExpectedConditions.visibilityOf(cardHeaderDiv));
+        return cardHeaderDiv.getText();
+    }
+
+    public String getCarPrice() {
+        wait.until(ExpectedConditions.visibilityOf(cardTextDiv));
+        return cardTextDiv.getText();
+    }
+
+    public String getItemDataFromTableInCart(int tdNumber) {
+        wait.until(ExpectedConditions.visibilityOf(tableInCart));
+        WebElement firstRowInTable = tableInCart.findElement(By.xpath("./tbody/tr/td[" + tdNumber + "]"));
+        return firstRowInTable.getText();
     }
 
 
