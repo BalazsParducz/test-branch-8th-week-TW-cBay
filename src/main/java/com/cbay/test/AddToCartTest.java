@@ -6,6 +6,8 @@ import com.cbay.util.Utils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.openqa.selenium.WebDriver;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,14 +24,15 @@ class AddToCartTest {
         addToCart = new AddToCart(driver);
     }
 
+    @ParameterizedTest()
+    @ValueSource(ints = {3})
     @Test
-    public void addItemToCart_test() {
-        int itemsAddedInCart = 3;
+    public void addItemToCart_test(int numOfItems) {
         addToCart.goToPage("http://localhost:8080/products?style=Sport%20cars");
         int shoppingCartNumberOriginal = addToCart.getShoppingCartNumber();
-        addToCart.addItemToCart();
+        addToCart.addItemsToCart();
         int shoppingCartNumberIncreased = addToCart.getShoppingCartNumber();
-        assertEquals(shoppingCartNumberOriginal + itemsAddedInCart, shoppingCartNumberIncreased);
+        assertEquals(shoppingCartNumberOriginal + numOfItems, shoppingCartNumberIncreased);
     }
 
     @Test
@@ -42,6 +45,14 @@ class AddToCartTest {
         String carNameInTableInCart = addToCart.getItemDataFromTableInCart(1);
         String carPriceInTableInCart = addToCart.getItemDataFromTableInCart(5);
         assertTrue(carData.contains(carNameInTableInCart) && carPrice.contains(carPriceInTableInCart));
+    }
+
+    @Test
+    public void checkQuantityOfItemInCart_test() {
+        addItemToCart_test(3);
+        addToCart.goToPage("http://localhost:8080/shopping-cart");
+        String carQuantityInTableInCart = addToCart.getItemQuantityFromTableInCart(3);
+        assertEquals(Integer.parseInt(carQuantityInTableInCart), 3);
     }
 
     @AfterEach

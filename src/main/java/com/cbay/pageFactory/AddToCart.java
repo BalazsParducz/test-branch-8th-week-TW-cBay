@@ -59,7 +59,7 @@ public class AddToCart {
         addToCartButton.click();
     }
 
-    public void addItemToCart() {
+    public void addItemsToCart() {
         wait.until(ExpectedConditions.visibilityOf(quantityDropDown));
         quantityDropDown.click();
         wait.until(ExpectedConditions.visibilityOf(quantitiyValue));
@@ -83,5 +83,10 @@ public class AddToCart {
         return firstRowInTable.getText();
     }
 
+    public String getItemQuantityFromTableInCart(int tdNumber) {
+        wait.until(ExpectedConditions.visibilityOf(tableInCart));
+        WebElement firstRowInTable = tableInCart.findElement(By.xpath("./tbody/tr/td[" + tdNumber + "]/input"));
+        return firstRowInTable.getAttribute("value");
+    }
 
 }
