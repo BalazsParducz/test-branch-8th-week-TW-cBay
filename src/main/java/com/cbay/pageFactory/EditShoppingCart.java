@@ -4,6 +4,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
@@ -35,6 +37,21 @@ public class EditShoppingCart {
     @FindBy(xpath = "//div[@class='shopping-cart']")
     WebElement shoppingCartButton;
 
+    @FindBy(xpath = "//table/tbody/tr[1]/td[3]/input")
+    WebElement amountOfTheFirstItem;
+
+    @FindBy(xpath = "//table/tbody/tr[2]/td[3]/input")
+    WebElement amountOfTheSecondItem;
+
+    @FindBy(className = "table-striped")
+    WebElement tableInCart;
+
+    @FindBy(xpath = "//table/tbody/tr[2]/td[2]/button")
+    WebElement increaseItemByOneBtn;
+
+    @FindBy(xpath = "//table/tbody/tr[2]/td[4]/button")
+    WebElement decreaseItemByOneBtn;
+
 
     public EditShoppingCart(WebDriver driver) {
         this.driver = driver;
@@ -52,6 +69,35 @@ public class EditShoppingCart {
         selectFromSelectList(quantity, astonMartinDB4QuantitySelectBox);
         addAstonMartinDB4.click();
     }
+
+    public int getSummaryItemsInShoppingCart() {
+        wait.until(ExpectedConditions.visibilityOf(tableInCart));
+        int result1 = Integer.parseInt(amountOfTheFirstItem.getAttribute("value"));
+        int result2 = Integer.parseInt(amountOfTheSecondItem.getAttribute("value"));
+        return result1+result2;
+    }
+
+    public int getValueOfInputField() {
+        return Integer.parseInt(amountOfTheSecondItem.getAttribute("value"));
+    }
+
+    public void increaseItemQuantity(int increaseWith) {
+        for (int i = 0; i < increaseWith; i++) {
+            increaseItemByOneBtn.click();
+        }
+    }
+
+    public void decreaseItemQuantity(int increaseWith) {
+        for (int i = 0; i < increaseWith; i++) {
+            decreaseItemByOneBtn.click();
+        }
+    }
+
+    public void fillInputField(String userInput){
+        amountOfTheFirstItem.sendKeys(userInput);
+    }
+
+
 
     public void openShoppingCart() {
         shoppingCartButton.click();
