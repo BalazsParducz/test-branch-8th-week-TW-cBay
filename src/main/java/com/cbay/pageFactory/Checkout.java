@@ -20,6 +20,12 @@ public class Checkout {
     @FindBy(id = "proceed")
     WebElement proceedToPayment;
 
+    @FindBy(id = "first-name")
+    WebElement firstName;
+
+    @FindBy(id = "last-name")
+    WebElement lastName;
+
     public Checkout (WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, TIMEOUT, POLLING);
@@ -42,7 +48,15 @@ public class Checkout {
         } catch (Exception e) {
             e.getMessage();
         }
+    }
 
+    public void enterFirstAndLastNameForPayment() {
+        wait.until(ExpectedConditions.elementToBeClickable(firstName));
+        firstName.click();
+        firstName.sendKeys("firstName");
+        wait.until(ExpectedConditions.elementToBeClickable(lastName));
+        lastName.click();
+        lastName.sendKeys("lastName");
     }
 
 

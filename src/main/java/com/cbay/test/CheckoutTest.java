@@ -35,6 +35,16 @@ class CheckoutTest {
         assertThrows(Exception.class, () -> checkout.clickOnProceedToPaymentButton());
     }
 
+    @Test
+    public void tryToPayWithNotEnoughCheckoutDataGiven_test() {
+        checkout.goToPage("http://192.168.160.231:8080/products?style=Sport%20cars");
+        addToCart.addSingleItemToCart();
+        checkout.goToPage("http://192.168.160.231:8080/shopping-cart");
+        checkout.clickOnCheckoutButton();
+        checkout.enterFirstAndLastNameForPayment();
+        assertThrows(Exception.class, () -> checkout.clickOnProceedToPaymentButton());
+    }
+
     @AfterEach
     public void tearDown() {
         Utils.tearDown();
