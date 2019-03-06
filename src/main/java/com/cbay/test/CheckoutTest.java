@@ -4,10 +4,12 @@ import com.cbay.pageFactory.AddToCart;
 import com.cbay.pageFactory.Checkout;
 import com.cbay.util.RunEnvironment;
 import com.cbay.util.Utils;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class CheckoutTest {
 
@@ -25,8 +27,17 @@ class CheckoutTest {
     }
 
     @Test
-    public void checkoutWithNoDataGiven() {
+    public void tryToPayWithNoCheckoutDataGiven_test() {
+        checkout.goToPage("http://localhost:8080/products?style=Sport%20cars");
+        addToCart.addSingleItemToCart();
+        checkout.goToPage("http://localhost:8080/shopping-cart");
+        checkout.clickOnCheckoutButton();
+        assertThrows(Exception.class, () -> checkout.clickOnProceedToPaymentButton());
+    }
 
+    @AfterEach
+    public void tearDown() {
+        Utils.tearDown();
     }
 
 }
