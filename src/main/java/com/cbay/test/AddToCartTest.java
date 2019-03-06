@@ -24,15 +24,14 @@ class AddToCartTest {
         addToCart = new AddToCart(driver);
     }
 
-    @ParameterizedTest()
-    @ValueSource(ints = {3})
     @Test
-    public void addItemToCart_test(int numOfItems) {
+    public void addItemToCart_test() {
+        int numOfItemsAddedInCart = 3;
         addToCart.goToPage("http://localhost:8080/products?style=Sport%20cars");
         int shoppingCartNumberOriginal = addToCart.getShoppingCartNumber();
         addToCart.addItemsToCart();
         int shoppingCartNumberIncreased = addToCart.getShoppingCartNumber();
-        assertEquals(shoppingCartNumberOriginal + numOfItems, shoppingCartNumberIncreased);
+        assertEquals(shoppingCartNumberOriginal + numOfItemsAddedInCart, shoppingCartNumberIncreased);
     }
 
     @Test
@@ -49,7 +48,7 @@ class AddToCartTest {
 
     @Test
     public void checkQuantityOfItemInCart_test() {
-        addItemToCart_test(3);
+        addItemToCart_test();
         addToCart.goToPage("http://localhost:8080/shopping-cart");
         String carQuantityInTableInCart = addToCart.getItemQuantityFromTableInCart(3);
         assertEquals(Integer.parseInt(carQuantityInTableInCart), 3);
