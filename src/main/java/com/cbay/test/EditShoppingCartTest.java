@@ -103,8 +103,8 @@ public class EditShoppingCartTest {
     @CsvFileSource(resources = "/carnames.csv")
     @ParameterizedTest
     public void addItemsToShoppingCart(String firstRowName, String secondRowName) {
-        editShoppingCart.addRollsRoyceSilverGhostToShoppingCart("2");
-        editShoppingCart.addAstonMartinDB4ToShoppingCart("3");
+        editShoppingCart.addRollsRoyceSilverGhostToShoppingCart("1");
+        editShoppingCart.addAstonMartinDB4ToShoppingCart("1");
         editShoppingCart.openShoppingCart();
         Assertions.assertEquals(firstRowName, editShoppingCart.nameOfTheGivenRowItemNameInShippingCart(1));
         Assertions.assertEquals(secondRowName, editShoppingCart.nameOfTheGivenRowItemNameInShippingCart(2));
