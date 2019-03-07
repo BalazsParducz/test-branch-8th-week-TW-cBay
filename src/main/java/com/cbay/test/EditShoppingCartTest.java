@@ -5,6 +5,8 @@ import com.cbay.pageFactory.EditShoppingCart;
 import com.cbay.util.RunEnvironment;
 import com.cbay.util.Utils;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.openqa.selenium.WebDriver;
 
 public class EditShoppingCartTest {
@@ -23,6 +25,7 @@ public class EditShoppingCartTest {
         driver.navigate().to("http://localhost:8080");
     }
 
+    //@Disabled
     @DisplayName("Test ShoppingCart size")
     @Test
     public void shoppingCartSizeEqualSum() {
@@ -44,6 +47,8 @@ public class EditShoppingCartTest {
         Assertions.assertEquals(shoppingCartSize, summaryItems, "Number next to the ShoppingCart icon is equal with summary items in the ShoppingCart ");
     }
 
+    //@Disabled
+    @DisplayName("Increase and decrease itemm in the shopping cart")
     @Test
     public void changeItemsQuantityWithButtons() {
         int actualResult;
@@ -76,6 +81,7 @@ public class EditShoppingCartTest {
         */
     }
 
+    //@Disabled
     @DisplayName("Fill input with wrong inputs")
     @Test
     public void fillInputWithWrongDetails(){
@@ -88,8 +94,22 @@ public class EditShoppingCartTest {
         editShoppingCart.openShoppingCart();
         editShoppingCart.fillInputField("Test data");
 
-        //Assertions
+
+        //TODO Assertions afer dev team finished the implementation
     }
+
+    //@Disabled
+    @DisplayName("Put Rolls Royce Silver Ghost and Aston Martin DB4 to shopping cart")
+    @CsvFileSource(resources = "/carnames.csv")
+    @ParameterizedTest
+    public void addItemsToShoppingCart(String firstRowName, String secondRowName) {
+        editShoppingCart.addRollsRoyceSilverGhostToShoppingCart("1");
+        editShoppingCart.addAstonMartinDB4ToShoppingCart("1");
+        editShoppingCart.openShoppingCart();
+        Assertions.assertEquals(firstRowName, editShoppingCart.nameOfTheGivenRowItemNameInShippingCart(1));
+        Assertions.assertEquals(secondRowName, editShoppingCart.nameOfTheGivenRowItemNameInShippingCart(2));
+    }
+
 
     @AfterEach
     public void tearDown() {
