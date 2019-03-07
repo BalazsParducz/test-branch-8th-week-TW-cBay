@@ -16,7 +16,6 @@ public class EditShoppingCart {
     WebDriver driver;
     WebDriverWait wait;
 
-
     @FindBy(xpath = "//*[@class='col-lg-3']/a[@href='/products?style=Sedans']")
     WebElement categoriesSedan;
 
@@ -31,9 +30,6 @@ public class EditShoppingCart {
 
     @FindBy(xpath = "/html/body/div[3]/div[2]/div/div[14]/div/div[2]/div[2]/form/select")
     WebElement astonMartinDB4QuantitySelectBox;
-
-    @FindBy(id = "shopping-cart-number")
-    WebElement sizeOfShoppingCartNextToTheShoppingCartButton;
 
     @FindBy(xpath = "//div[@class='shopping-cart']")
     WebElement shoppingCartButton;
@@ -101,7 +97,6 @@ public class EditShoppingCart {
     public void fillInputField(String userInput){
         amountOfTheFirstItem.sendKeys(userInput);
     }
-
 
 
     public void openShoppingCart() {

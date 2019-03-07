@@ -25,7 +25,6 @@ public class EditShoppingCartTest {
         driver.navigate().to("http://localhost:8080");
     }
 
-    //@Disabled
     @DisplayName("Test ShoppingCart size")
     @Test
     public void shoppingCartSizeEqualSum() {
@@ -47,7 +46,6 @@ public class EditShoppingCartTest {
         Assertions.assertEquals(shoppingCartSize, summaryItems, "Number next to the ShoppingCart icon is equal with summary items in the ShoppingCart ");
     }
 
-    //@Disabled
     @DisplayName("Increase and decrease itemm in the shopping cart")
     @Test
     public void changeItemsQuantityWithButtons() {
@@ -59,29 +57,15 @@ public class EditShoppingCartTest {
         addToCart.addSingleItemToCart();
         editShoppingCart.openShoppingCart();
 
-        //Test increase btn
         editShoppingCart.increaseItemQuantity(5);
         actualResult = editShoppingCart.getValueOfInputField();
         Assertions.assertEquals(6, actualResult, "Increase button increase the value");
 
-        /* Test input after refresh
-        driver.navigate().refresh();
-        actualResult = editShoppingCart.getValueOfInputField();
-        Assertions.assertEquals(6, actualResult, "After refresh shopping cart save changes");
-        */
-
         editShoppingCart.decreaseItemQuantity(3);
         actualResult = editShoppingCart.getValueOfInputField();
         Assertions.assertEquals(3, actualResult, "Decrease button decrease the value");
-
-        /* Test input after refresh
-        driver.navigate().refresh();
-        actualResult = editShoppingCart.getValueOfInputField();
-        Assertions.assertEquals(3, actualResult, "After refresh shopping cart save changes");
-        */
     }
 
-    //@Disabled
     @DisplayName("Fill input with wrong inputs")
     @Test
     public void fillInputWithWrongDetails(){
@@ -94,11 +78,9 @@ public class EditShoppingCartTest {
         editShoppingCart.openShoppingCart();
         editShoppingCart.fillInputField("Test data");
 
-
         //TODO Assertions afer dev team finished the implementation
     }
 
-    //@Disabled
     @DisplayName("Put Rolls Royce Silver Ghost and Aston Martin DB4 to shopping cart")
     @CsvFileSource(resources = "/carnames.csv")
     @ParameterizedTest
@@ -109,8 +91,7 @@ public class EditShoppingCartTest {
         Assertions.assertEquals(firstRowName, editShoppingCart.nameOfTheGivenRowItemNameInShippingCart(1));
         Assertions.assertEquals(secondRowName, editShoppingCart.nameOfTheGivenRowItemNameInShippingCart(2));
     }
-
-
+    
     @AfterEach
     public void tearDown() {
         Utils.tearDown();
