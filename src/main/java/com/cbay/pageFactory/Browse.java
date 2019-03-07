@@ -29,7 +29,10 @@ public class Browse {
     List<WebElement> categories;
 
     @FindBy(tagName = "strong")
-    WebElement strong;
+    WebElement categoryTag;
+
+    @FindBy(className = "card")
+    List<WebElement> carsUnderCategory;
 
 
     public ArrayList<String> getCategories() {
@@ -44,9 +47,12 @@ public class Browse {
         for (WebElement category : categories) {
             if(category.getText().equals(cat)) {
                 category.click();
-                wait.until(ExpectedConditions.visibilityOf(strong));
-                //wait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("strong")));
+                wait.until(ExpectedConditions.visibilityOf(categoryTag));
             }
         }
+    }
+
+    public List<WebElement> getCarsUnderCategory() {
+        return carsUnderCategory;
     }
 }

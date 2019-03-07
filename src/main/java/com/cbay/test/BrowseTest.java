@@ -8,10 +8,12 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -42,7 +44,7 @@ public class BrowseTest {
     public void categoryExists() {
         assertTrue(browse.getCategories().contains("Sedans"));
     }
-
+    @Disabled
     @Test
     public void pickCategory() {
         String pickedCategory = "Convertibles";
@@ -53,7 +55,14 @@ public class BrowseTest {
         } finally {
             String url = driver.getCurrentUrl();
             System.out.println(url);
-            assertEquals("http://localhost:8080/products?style="+pickedCategory, url);
+            assertEquals("http://localhost:8080/products?style=" + pickedCategory, url);
         }
+    }
+
+    @Test
+    public void carsUnderCategory() {
+        String pickedCategory = "Hatchbacks";
+        driver.get("http://localhost:8080/products?style=" + pickedCategory);
+        assertTrue(browse.getCarsUnderCategory().get(0).isDisplayed());
     }
 }
