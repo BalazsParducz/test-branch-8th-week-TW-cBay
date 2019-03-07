@@ -1,9 +1,11 @@
 package com.cbay.pageFactory;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
@@ -26,6 +28,9 @@ public class Browse {
     @FindBy(className = "card-title")
     List<WebElement> categories;
 
+    @FindBy(tagName = "strong")
+    WebElement strong;
+
 
     public ArrayList<String> getCategories() {
         final ArrayList<String> categoriesAsText = new ArrayList<>();
@@ -33,5 +38,15 @@ public class Browse {
             categoriesAsText.add(category.getText());
         }
         return categoriesAsText;
+    }
+
+    public void clickOnCategory(String cat) {
+        for (WebElement category : categories) {
+            if(category.getText().equals(cat)) {
+                category.click();
+                wait.until(ExpectedConditions.visibilityOf(strong));
+                //wait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("strong")));
+            }
+        }
     }
 }
