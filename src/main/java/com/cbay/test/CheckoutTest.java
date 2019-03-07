@@ -11,7 +11,6 @@ import org.openqa.selenium.WebDriver;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CheckoutTest {
 
