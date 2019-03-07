@@ -29,7 +29,7 @@ public class BrowseTest {
     public void confirmCategories () {
         ArrayList<String> cats = browse.getCategories();
         System.out.println(cats.size());
-        assertTrue(cats!=null);
+        assertTrue(cats.size() > 0);
     }
 
     @Test
