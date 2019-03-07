@@ -26,6 +26,15 @@ public class Checkout {
     @FindBy(id = "last-name")
     WebElement lastName;
 
+    @FindBy(id = "billing-zipcode")
+    WebElement billingZipCode;
+
+    @FindBy(id = "shipping-zipcode")
+    WebElement shippingZipCode;
+
+    @FindBy(id = "phone-number")
+    WebElement phoneNumber;
+
     public Checkout (WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, TIMEOUT, POLLING);
@@ -57,6 +66,21 @@ public class Checkout {
         wait.until(ExpectedConditions.elementToBeClickable(lastName));
         lastName.click();
         lastName.sendKeys("lastName");
+    }
+
+    public void enterZipCodeForPayment(String input) {
+        wait.until(ExpectedConditions.elementToBeClickable(billingZipCode));
+        billingZipCode.click();
+        billingZipCode.sendKeys(input);
+        wait.until(ExpectedConditions.elementToBeClickable(shippingZipCode));
+        shippingZipCode.click();
+        shippingZipCode.sendKeys(input);
+    }
+
+    public void enterPhoneNumberForPayment(String input) {
+        wait.until(ExpectedConditions.elementToBeClickable(phoneNumber));
+        phoneNumber.click();
+        phoneNumber.sendKeys(input);
     }
 
 
