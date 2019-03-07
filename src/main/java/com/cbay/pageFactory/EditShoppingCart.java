@@ -1,5 +1,6 @@
 package com.cbay.pageFactory;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -23,13 +24,13 @@ public class EditShoppingCart {
     WebElement addRollsRoyceSilverGhost;
 
     @FindBy(xpath = "/html/body/div[3]/div[2]/div/div[5]/div/div[2]/div[2]/form/select")
-    List<WebElement> rollsRoyceSilverGhostQuantitySelectBox;
+    WebElement rollsRoyceSilverGhostQuantitySelectBox;
 
     @FindBy(xpath = "//form[@action='products?style=Sedans']/button[@value=39]")
     WebElement addAstonMartinDB4;
 
     @FindBy(xpath = "/html/body/div[3]/div[2]/div/div[14]/div/div[2]/div[2]/form/select")
-    List<WebElement> astonMartinDB4QuantitySelectBox;
+    WebElement astonMartinDB4QuantitySelectBox;
 
     @FindBy(id = "shopping-cart-number")
     WebElement sizeOfShoppingCartNextToTheShoppingCartButton;
@@ -57,6 +58,10 @@ public class EditShoppingCart {
         this.driver = driver;
         wait = new WebDriverWait(driver, 10);
         PageFactory.initElements(driver, this);
+    }
+
+    public String nameOfTheGivenRowItemNameInShippingCart(int row) {
+        return driver.findElement(By.xpath("//table/tbody/tr["+ row +"]/td[1]")).getText();
     }
 
     public void addRollsRoyceSilverGhostToShoppingCart(String quantity) {
@@ -103,10 +108,8 @@ public class EditShoppingCart {
         shoppingCartButton.click();
     }
 
-    private void selectFromSelectList(String amount, List<WebElement> elements) {
-        for (WebElement element : elements) {
-            element.sendKeys(amount);
-        }
+    private void selectFromSelectList(String quantity, WebElement element) {
+        element.sendKeys(quantity);
     }
 
 
