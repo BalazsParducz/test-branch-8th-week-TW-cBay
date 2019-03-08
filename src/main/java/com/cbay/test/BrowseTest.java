@@ -3,6 +3,7 @@ package com.cbay.test;
 import com.cbay.pageFactory.Browse;
 import com.cbay.util.RunEnvironment;
 import com.cbay.util.Utils;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -32,19 +33,19 @@ public class BrowseTest {
         browse = new Browse(driver);
         driver.get("http://localhost:8080");
     }
-    @Disabled
+
     @Test
     public void confirmCategories () {
         ArrayList<String> cats = browse.getCategories();
         System.out.println(cats.size());
         assertTrue(cats.size() > 0);
     }
-    @Disabled
+
     @Test
     public void categoryExists() {
         assertTrue(browse.getCategories().contains("Sedans"));
     }
-    @Disabled
+
     @Test
     public void pickCategory() {
         String pickedCategory = "Convertibles";
@@ -64,5 +65,10 @@ public class BrowseTest {
         String pickedCategory = "Hatchbacks";
         driver.get("http://localhost:8080/products?style=" + pickedCategory);
         assertTrue(browse.getCarsUnderCategory().get(0).isDisplayed());
+    }
+
+    @AfterEach
+    public void tearDown() {
+        Utils.tearDown();
     }
 }
